@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -22,13 +23,14 @@ func main() {
 	sc := string(content)
 	arr := strings.Split(sc, "\n\n")
 
-	maxCalories := 0
+	var calorieArr []int
 	for _, stack := range arr {
 		calories := tallyElfCalories(stack)
-		if maxCalories < calories {
-			maxCalories = calories
-		}
+		calorieArr = append(calorieArr, calories)
 	}
-
-	fmt.Println("Something to print:", maxCalories)
+	sort.Ints(calorieArr)
+	l := len(calorieArr)
+	out := calorieArr[l-1] + calorieArr[l-2] + calorieArr[l-3]
+	fmt.Println("Part 1:", calorieArr[l-1])
+	fmt.Println("Part 2:", out)
 }
